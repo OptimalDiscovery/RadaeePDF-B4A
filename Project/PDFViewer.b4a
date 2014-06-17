@@ -1,0 +1,124 @@
+﻿Version=3.2
+IconFile=
+NumberOfModules=1
+Module1=ReaderController
+ModuleVisible1=1
+Package=com.rootsoft.pdfviewer
+DoNotOverwriteManifest=False
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+UserTypesHint=ReaderController
+NumberOfFiles=1
+File1=test.pdf
+NumberOfLibraries=2
+Library1=core
+Library2=pdfviewer
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: PDFViewer
+	#VersionCode: 1
+	#VersionName: 1.00
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: false
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	
+	'Declaration of constants
+	
+	'Declaration of types
+
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	
+	'Declaration of variables
+	Dim result As Int
+	
+	'Declaration of views
+	
+	'Declaration of libraries
+	
+	'Declaration of pdf
+	Dim vPDF As ReaderController
+	Dim Global As PDFGlobal
+	Dim Document As PDFDocument
+
+
+
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Load Activity Stuf
+	
+	'Initialization
+	Global.Initialize("PDFViewer")
+	vPDF.Initialize("ReaderController")
+	Document.Initialize
+	Document.Close
+	'result = Document.OpenStream(Document.getURLStream("http://www.androidpdf.mobi/docs/MRBrochoure.pdf"), Null)
+	CopyFile
+	
+	result = Document.Open(File.Combine(File.DirRootExternal, "test.pdf"), Null)
+	
+	
+	If CheckResult(result) Then
+		ToastMessageShow("Opening document.", False)
+		vPDF.Open(Document)
+		Activity.AddView(vPDF.AsView, 0dip, 0dip, 100%x, 100%y)
+		vPDF.Invalidate
+		vPDF.AsView.BringToFront
+	Else
+		ToastMessageShow("An error occurred.: " & result, True)
+	End If
+	
+
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	Close
+End Sub
+
+Sub CheckResult (pResult As Int) As Boolean
+
+	Select pResult
+		Case 0 :
+			Return True
+		Case -1 :
+		Case -2 :
+		Case -3 :
+		Case -10 :
+		
+	End Select
+	
+	Return False
+End Sub
+
+Sub Close
+	vPDF.Close
+	If Document <> Null Then
+		Document.Close
+	End If
+	Global.RemoveTmp
+End Sub
+
+Sub CopyFile
+	If Not(File.Exists(File.DirRootExternal, "test.pdf")) Then
+		File.Copy(File.DirAssets, "test.pdf", File.DirRootExternal, "test.pdf")
+	End If
+End Sub
+
+
