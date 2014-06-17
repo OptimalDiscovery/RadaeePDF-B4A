@@ -1,0 +1,9 @@
+RadaeePDF-B4A
+=============
+
+Everyone can use this code for free.
+Every contribution is welcome.
+This code is provided as is and without any direct support from Radaee Support Team.
+
+regards,
+GEAR.it and Radaee Studio Teams
