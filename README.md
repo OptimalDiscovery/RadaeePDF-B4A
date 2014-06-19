@@ -13,3 +13,9 @@ This code is provided as is and without any direct support from Radaee Support T
 
 regards,
 GEAR.it and Radaee Studio Teams
+
+References
+==========
+
+PDFViewer SDK for Mobiles - http://www.radaeepdf.com
+Basic4Android - http://www.basic4ppc.com
